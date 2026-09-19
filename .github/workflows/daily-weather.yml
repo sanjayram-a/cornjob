@@ -22,7 +22,7 @@ jobs:
 
       - name: Send weather email
         env:
-          GMAIL_USER: ${{ vars.GMAIL_USER }}
-          GMAIL_APP_PASSWORD: ${{ vars.GMAIL_APP_PASSWORD }}
-          TO_EMAIL: ${{ vars.TO_EMAIL }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
         run: python weather_mailer.py

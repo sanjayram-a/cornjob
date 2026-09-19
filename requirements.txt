@@ -1,0 +1,3 @@
+requests
+python-dotenv
+tzdata  # Windows needs IANA DB for zoneinfo Asia/Kolkata

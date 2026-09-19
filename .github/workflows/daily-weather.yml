@@ -1,0 +1,28 @@
+name: Daily Bern weather email
+
+# 8:00 AM IST = 02:30 UTC (IST is UTC+5:30, no DST)
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch: {}  # manual "Run workflow" button for testing
+
+jobs:
+  send-weather:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send weather email
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+        run: python weather_mailer.py

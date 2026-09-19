@@ -25,4 +25,10 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
-        run: python weather_mailer.py
+        run: |
+          if [ -z "$GMAIL_USER" ] || [ -z "$GMAIL_APP_PASSWORD" ]; then
+            echo "GMAIL_USER/GMAIL_APP_PASSWORD secrets are missing; running dry-run instead."
+            python weather_mailer.py --dry-run
+          else
+            python weather_mailer.py
+          fi
